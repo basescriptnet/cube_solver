@@ -1,0 +1,27 @@
+{
+  "name": "dart",
+  "version": "1.0.0",
+  "description": "A simple project made with dart programming language",
+  "main": "script.js",
+  "watch": {
+    "compile": {
+      "patterns": ["./"],
+      "extensions": "dart"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "dart2js -O2 -o script.js main.dart",
+    "watch": "npm-watch"
+  },
+  "keywords": [
+    "dart",
+    "dart2js",
+    "html"
+  ],
+  "author": "basescript.net",
+  "license": "ISC",
+  "dependencies": {
+    "npm-watch": "^0.11.0"
+  }
+}
