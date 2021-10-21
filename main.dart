@@ -1,10 +1,7 @@
-import 'Solver.dart';
+// import 'Solver.dart';
 import 'dart:html';
-import 'dart:async';
-
 import 'dart:math';
 
-// const double pi = 3.1415926535897932;
 int width = 600;
 int height = 350;
 int cell = 50;
@@ -20,9 +17,29 @@ void log(final message) {
 
 String rotateFace(String string, int direction) {
   if (direction == -1) {
-    return '${string[6]}${string[3]}${string[0]}${string[7]}${string[4]}${string[1]}${string[8]}${string[5]}${string[2]}';
+    return [
+      string[6],
+      string[3],
+      string[0],
+      string[7],
+      string[4],
+      string[1],
+      string[8],
+      string[5],
+      string[2]
+    ].join();
   }
-  return '${string[2]}${string[5]}${string[8]}${string[1]}${string[4]}${string[7]}${string[0]}${string[3]}${string[6]}';
+  return [
+    string[2],
+    string[5],
+    string[8],
+    string[1],
+    string[4],
+    string[7],
+    string[0],
+    string[3],
+    string[6]
+  ].join();
 }
 
 void writeToUI() {
@@ -89,7 +106,7 @@ Map<String, String> sides() {
 }
 
 void main(List<String> args) {
-  Solver solver = new Solver();
+  // Solver solver = new Solver();
   CanvasElement canvas = new CanvasElement();
   document.body?.children.add(canvas);
 
@@ -169,6 +186,7 @@ void main(List<String> args) {
     draw_top();
     draw_front();
     draw_right();
+    writeToUI();
     // var timer = new Timer(new Duration(milliseconds: 100), draw);
   }
 
@@ -254,9 +272,77 @@ void main(List<String> args) {
       }
     }
     draw();
-    writeToUI();
-    solver.feed(sides());
-    solver.isSolved();
+    // solver.feed(sides());
+    // solver.isSolved();
+  }
+
+  String flipStringY(String string) {
+    return [
+      string.substring(6, 9),
+      string.substring(3, 6),
+      string.substring(0, 3)
+    ].join();
+  }
+
+  String flipStringX(String string) {
+    return [
+      string[2],
+      string[1],
+      string[0],
+      string[5],
+      string[4],
+      string[3],
+      string[8],
+      string[7],
+      string[6],
+    ].join();
+  }
+
+  void rotateXself() {
+    Map<String, dynamic> objs = {
+      'front': front,
+      'top': flipStringY(top),
+      'back': back,
+      'bottom': flipStringY(bottom),
+      'left': left,
+      'right': right
+    };
+    right = rotateFace(objs['right'], -1);
+    left = rotateFace(objs['left'], 1);
+    front = objs['bottom'];
+    top = objs['front'];
+    back = objs['top'];
+    bottom = objs['back'];
+
+    draw();
+  }
+
+  void rotateYself() {
+    Map<String, dynamic> objs = {
+      'front': front,
+      'top': rotateFace(top, -1),
+      'back': flipStringX(back),
+      'bottom': rotateFace(bottom, -1),
+      'left': flipStringX(left),
+      'right': right
+    };
+    right = objs['back'];
+    front = objs['right'];
+    left = objs['front'];
+    back = objs['left'];
+    top = objs['top'];
+    bottom = objs['bottom'];
+
+    draw();
+  }
+
+  void rotateZself() {
+    rotateXself();
+    rotateYself();
+    rotateXself();
+    rotateXself();
+    rotateXself();
+    draw();
   }
 
   void rotateY(String side, int direction) {
@@ -321,9 +407,8 @@ void main(List<String> args) {
       }
     }
     draw();
-    writeToUI();
-    solver.feed(sides());
-    solver.isSolved();
+    // solver.feed(sides());
+    // solver.isSolved();
   }
 
   void rotateZ(String side, int direction) {
@@ -418,9 +503,8 @@ void main(List<String> args) {
       }
     }
     draw();
-    writeToUI();
-    solver.feed(sides());
-    solver.isSolved();
+    // solver.feed(sides());
+    // solver.isSolved();
   }
 
   // event listeners
@@ -436,6 +520,33 @@ void main(List<String> args) {
   });
   querySelector('#left_shtrih')?.onClick.listen((event) {
     rotateX('left', 1);
+  });
+
+  querySelector('#x')?.onClick.listen((event) {
+    rotateXself();
+  });
+  querySelector('#x_shtrih')?.onClick.listen((event) {
+    rotateXself();
+    rotateXself();
+    rotateXself();
+  });
+
+  querySelector('#y')?.onClick.listen((event) {
+    rotateYself();
+  });
+  querySelector('#y_shtrih')?.onClick.listen((event) {
+    rotateYself();
+    rotateYself();
+    rotateYself();
+  });
+
+  querySelector('#z')?.onClick.listen((event) {
+    rotateZself();
+  });
+  querySelector('#z_shtrih')?.onClick.listen((event) {
+    rotateZself();
+    rotateZself();
+    rotateZself();
   });
 
   querySelector('#top')?.onClick.listen((event) {
@@ -543,10 +654,5 @@ void main(List<String> args) {
     draw();
     writeToUI();
   });
-  writeToUI();
-  // for (int i = 0; i < 209; i++) {
-  //   querySelector('#top')?.click();
-  //   querySelector('#right_shtrih')?.click();
-  // }
-  var timer = new Timer(new Duration(milliseconds: 100), draw);
+  draw();
 }

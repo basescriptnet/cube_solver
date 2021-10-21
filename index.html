@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rubik's cube!</title>
     <style>
         span {
             display: inline-block;
@@ -47,69 +47,67 @@
             flex-direction: column;
         }
         button {
-            margin: 2px;
+            font-size: 30px;
+            margin: 2px 5px;
             border: 1px #DADADA solid;
             padding: 5px 10px;
             border-radius: 2px;
             font-weight: bold;
-            font-size: 9pt;
             outline: none;
             color: white;
-            border: 1px solid #FB8F3D; 
+            border: 1px solid #FB8F3D;
             background: -webkit-linear-gradient(top, #FDA251, #FB8F3D);
-            background: -moz-linear-gradient(top, #FDA251, #FB8F3D);
-            background: -ms-linear-gradient(top, #FDA251, #FB8F3D);
         }
     </style>
 </head>
-<body>
     <section id="buttons">
         <div class="column">
             <button id="right">R</button>
             <button id="right_shtrih">R'</button>
         </div>
-    
+
         <div class="column">
             <button id="left">L</button>
             <button id="left_shtrih">L'</button>
         </div>
-    
+
+        <div class="column">
+            <button id="x">X</button>
+            <button id="x_shtrih">X'</button>
+        </div>
+
         <div class="column">
             <button id="top">U</button>
             <button id="top_shtrih">U'</button>
         </div>
-    
+
         <div class="column">
             <button id="bottom">D</button>
             <button id="bottom_shtrih">D'</button>
         </div>
-    
+
+        <div class="column">
+            <button id="y">Y</button>
+            <button id="y_shtrih">Y'</button>
+        </div>
+
         <div class="column">
             <button id="front">F</button>
             <button id="front_shtrih">F'</button>
         </div>
-    
+
         <div class="column">
             <button id="back">B</button>
             <button id="back_shtrih">B'</button>
         </div>
+
+        <div class="column">
+            <button id="z">Z</button>
+            <button id="z_shtrih">Z'</button>
+        </div>
         <button id="shuffle">Shuffle</button>
     </section>
-    <pre id="cube" style="margin-left: 100px;">
-      <!-- w w w
-      w w w
-      w w w 
-o o o g g g r r r
-o o o g g g r r r
-o o o g g g r r r
-      y y y
-      y y y 
-      y y y 
-        
-      b b b 
-      b b b 
-      b b b -->
-    </pre>
+    <pre id="cube" style="margin-left: 100px;"></pre>
 
     <div id="shuffle_result"></div>
 

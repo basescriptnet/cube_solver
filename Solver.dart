@@ -300,16 +300,31 @@ class Solver {
     return path;
   }
 
+  fromTopToTheBottom(int index) {
+    if (index == 1 || index == 19)
+      return 'B2';
+    else if (index == 3 || index == 28)
+      return 'L2';
+    else if (index == 5 || index == 37)
+      return 'R2';
+    else if (index == 7 || index == 10) return 'F2';
+    return '';
+  }
+
   whiteCross() {
-    // if (this.isSolved()) return 'Solved';
     List result = [];
-    // is white red correct
-    // if (this.top[5] != 'w' || this.right[1] != 'r') {}
-    // var whiteRed = this.getElementById(5);
     bool isOnTheBottom(int index) {
       if (index >= 45 && index < 54) {
         return true;
       }
+      return false;
+    }
+
+    bool isOnTheTop(int index) {
+      if (index >= 0 && index < 9) {
+        return true;
+      } else if (index == 10 || index == 19 || index == 28 || index == 37)
+        return true;
       return false;
     }
 
@@ -330,6 +345,62 @@ class Solver {
         List moves = oppositePathFinder('B', 'D', index, 1);
         // log('Path for white blue: $moves');
         path.addAll(moves);
+      } else if (isOnTheTop(whiteBlue)) {
+        path.add(fromTopToTheBottom(whiteBlue));
+        // middle direct
+      } else if (whiteBlue == 12) {
+        path.add('U\'');
+        path.add('L\'');
+        path.add('U');
+      } else if (whiteBlue == 21) {
+        path.add('U');
+        path.add('B\'');
+        path.add('U\'');
+        // middle opposite
+      } else if (whiteBlue == 14) {
+        path.add('U');
+        path.add('R');
+        path.add('U\'');
+      } else if (whiteBlue == 23) {
+        path.add('U2');
+        path.add('R\'');
+        path.add('U2');
+        // middle left
+      } else if (whiteBlue == 30) {
+        path.add('B\'');
+      } else if (whiteBlue == 32) {
+        path.add('U\'');
+        path.add('L\'');
+        path.add('U');
+        // middle right
+      } else if (whiteBlue == 39) {
+        path.add('U');
+        path.add('R');
+        path.add('U\'');
+      } else if (whiteBlue == 41) {
+        path.add('U\'');
+        path.add('B');
+        path.add('U');
+        // bottom flipped
+      } else if (whiteBlue == 16) {
+        path.add('U');
+        path.add('F\'');
+        path.add('R');
+        path.add('F');
+        path.add('U\'');
+      } else if (whiteBlue == 34) {
+        path.add('D\'');
+        path.add('F');
+        path.add('L\'');
+        path.add('F\'');
+      } else if (whiteBlue == 43) {
+        path.add('R\'');
+        path.add('B');
+        path.add('R');
+      } else if (whiteBlue == 25) {
+        path.add('B\'');
+        path.add('L');
+        path.add('B');
       }
     }
     if (whiteEdges['whiteRed'] != 5) {
@@ -338,10 +409,42 @@ class Solver {
         List moves = oppositePathFinder('R', 'D', index, 5);
         // log('Path for white red: $moves');
         path.addAll(moves);
+      } else if (isOnTheTop(whiteRed)) {
+        path.add(fromTopToTheBottom(whiteRed));
+        // middle direct
+      } else if (whiteRed == 14) {
+        path.add('R');
+      } else if (whiteRed == 23) {
+        path.add('R\'');
+        // middle opposite
+      } else if (whiteRed == 12) {
+        path.add('U2');
+        path.add('L\'');
+        path.add('U2');
+      } else if (whiteRed == 21) {
+        path.add('U2');
+        path.add('L');
+        path.add('U2');
+        // middle left
+      } else if (whiteRed == 30) {
+        path.add('U\'');
+        path.add('B\'');
+        path.add('U');
+      } else if (whiteRed == 32) {
+        path.add('U');
+        path.add('F');
+        path.add('U\'');
+        // middle right
+      } else if (whiteRed == 39) {
+        path.add('U');
+        path.add('F\'');
+        path.add('U\'');
+      } else if (whiteRed == 41) {
+        path.add('U\'');
+        path.add('B');
+        path.add('U');
       }
-      //  else if (whiteRed == 14) {
-      //   path.add('R');
-      // }
+      // bottom flipped
       else if (whiteRed == 16) {
         path.add('F\'');
         path.add('R');
@@ -357,12 +460,11 @@ class Solver {
         path.add('R');
         path.add('F');
       } else if (whiteRed == 25) {
-        // path.add('D');
+        path.add('U');
         path.add('B');
-        path.add('R\'');
+        path.add('R');
         path.add('B\'');
-      } else
-        log(whiteRed);
+      }
     }
     if (whiteEdges['whiteOrange'] != 3) {
       if (isOnTheBottom(whiteOrange) == true) {
@@ -370,6 +472,42 @@ class Solver {
         List moves = oppositePathFinder('L', 'D', index, 3);
         // log('Path for white red: $moves');
         path.addAll(moves);
+      } else if (isOnTheTop(whiteOrange)) {
+        path.add(fromTopToTheBottom(whiteOrange));
+        path.add(fromTopToTheBottom(whiteRed));
+        // middle direct
+      } else if (whiteOrange == 12) {
+        path.add('L\'');
+      } else if (whiteOrange == 21) {
+        path.add('L');
+        // middle opposite
+      } else if (whiteOrange == 14) {
+        path.add('U2');
+        path.add('R');
+        path.add('U2');
+      } else if (whiteOrange == 23) {
+        path.add('U2');
+        path.add('R\'');
+        path.add('U2');
+        // middle left
+      } else if (whiteOrange == 30) {
+        path.add('U');
+        path.add('B\'');
+        path.add('U\'');
+      } else if (whiteOrange == 32) {
+        path.add('U\'');
+        path.add('F');
+        path.add('U');
+        // middle right
+      } else if (whiteOrange == 39) {
+        path.add('U\'');
+        path.add('F\'');
+        path.add('U');
+      } else if (whiteOrange == 41) {
+        path.add('U');
+        path.add('B');
+        path.add('U\'');
+        // bottom flipped
       } else if (whiteOrange == 16) {
         path.add('F');
         path.add('L\'');
@@ -385,7 +523,6 @@ class Solver {
         path.add('L\'');
         path.add('F\'');
       } else if (whiteOrange == 25) {
-        // path.add('D');
         path.add('B\'');
         path.add('L');
         path.add('B');
@@ -397,6 +534,41 @@ class Solver {
         List moves = oppositePathFinder('F', 'D', index, 7);
         // log('Path for white red: $moves');
         path.addAll(moves);
+      } else if (isOnTheTop(whiteGreen)) {
+        path.add(fromTopToTheBottom(whiteGreen));
+        // middle direct
+      } else if (whiteGreen == 12) {
+        path.add('U\'');
+        path.add('L\'');
+        path.add('U');
+      } else if (whiteGreen == 21) {
+        path.add('U');
+        path.add('L\'');
+        path.add('U\'');
+        // middle opposite
+      } else if (whiteGreen == 14) {
+        path.add('U');
+        path.add('R');
+        path.add('U\'');
+      } else if (whiteGreen == 23) {
+        path.add('U\'');
+        path.add('R\'');
+        path.add('U');
+        // middle left
+      } else if (whiteGreen == 30) {
+        path.add('L2');
+        path.add('F');
+        path.add('L2');
+      } else if (whiteGreen == 32) {
+        path.add('F');
+        // middle right
+      } else if (whiteGreen == 39) {
+        path.add('F\'');
+      } else if (whiteGreen == 41) {
+        path.add('R2');
+        path.add('F\'');
+        path.add('R2');
+        // bottom flipped
       } else if (whiteGreen == 16) {
         path.add('D');
         path.add('R');
